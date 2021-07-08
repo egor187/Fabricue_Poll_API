@@ -3,7 +3,13 @@ from .models import Poll, Question, Answer
 from .serializers import PollSerializer, QuestionSerializer, AnswerSerializer, SelfPollSerializer
 
 
-class PollListAPIView(generics.ListCreateAPIView):
+class PollListAPIView(generics.ListAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class PollCreateAPIView(generics.ListCreateAPIView):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
     permission_classes = [permissions.IsAdminUser]
@@ -22,7 +28,12 @@ class SelfPollListAPIView(generics.ListAPIView):
         return Poll.objects.filter(user__id=self.kwargs.get("user_id"))
 
 
-class QuestionListAPIView(generics.ListCreateAPIView):
+class QuestionListAPIView(generics.ListAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class QuestionCreateAPIView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
