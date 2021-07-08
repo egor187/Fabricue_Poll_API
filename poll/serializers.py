@@ -20,7 +20,7 @@ class SelfPollSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    poll = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    poll = serializers.SlugRelatedField(slug_field="name", queryset=Poll.objects.all())
 
     class Meta:
         model = Question
