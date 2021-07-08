@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from .yasg import urlpatterns as swagger_patterns
 
 
 urlpatterns = [
@@ -19,3 +20,5 @@ urlpatterns = [
     # path('jwt/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # path('jwt/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
+
+urlpatterns += swagger_patterns
