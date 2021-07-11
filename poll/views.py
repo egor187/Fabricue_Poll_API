@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from .models import Poll, Question, Answer
 from .serializers import PollSerializer, QuestionSerializer, AnswerSerializer, SelfPollSerializer
 
+from .permissions import IsAnswerOwnerOrReadOnly
 
 class PollListAPIView(generics.ListAPIView):
     queryset = Poll.objects.all()
@@ -12,7 +13,7 @@ class PollListAPIView(generics.ListAPIView):
 class PollCreateAPIView(generics.ListCreateAPIView):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class PollDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -59,6 +60,7 @@ class SelfAnswerListAPIView(generics.ListAPIView):
 class AnswerDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAnswerOwnerOrReadOnly]
 
 
 class AnswerCreateAPIView(generics.CreateAPIView):
