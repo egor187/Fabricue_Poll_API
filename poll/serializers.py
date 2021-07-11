@@ -29,6 +29,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class AnswerSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    question = serializers.SlugRelatedField(slug_field="text", queryset=Question.objects.all())
 
     class Meta:
         model = Answer
